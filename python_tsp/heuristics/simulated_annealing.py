@@ -15,7 +15,8 @@ def solve_tsp_simulated_annealing(
     alpha: float = 0.9,
     max_processing_time: float = None,
     log_file: Optional[str] = None,
-    verbose: bool = False
+    verbose: bool = False, 
+    max_no_improvements: int = 10,
 ) -> Tuple[List, float]:
     """Solve a TSP problem using a Simulated Annealing
     The approach used here is the one proposed in [1].
@@ -76,7 +77,7 @@ def solve_tsp_simulated_annealing(
 
     tic = default_timer()
     stop_early = False
-    while (k_noimprovements < 3) and (not stop_early):
+    while (k_noimprovements < max_no_improvements) and (not stop_early):
         k_accepted = 0  # number of accepted perturbations
         for k in range(k_inner_max):
             if default_timer() - tic > max_processing_time:
